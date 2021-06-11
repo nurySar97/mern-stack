@@ -1,0 +1,24 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "MERN-STACK",
+  "main": "app.js",
+  "scripts": {
+    "start":"node app.js",
+    "server": "nodemon app.js"
+  },
+  "keywords": [
+    "mern",
+    "mongo-express-react-node.js"
+  ],
+  "author": "Nurmuhammet Saryyev <nsaryyev9797@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.7"
+  }
+}
