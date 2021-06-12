@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const AuthPage = () => {
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    });
+
+    const changeHandler = e => {
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
+
     return (
         <div className='row'>
             <div className="col s6 offset-s3">
@@ -8,7 +17,7 @@ const AuthPage = () => {
                 <div className="card blue darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">Authorization</span>
-                        
+                        <pre>{JSON.stringify(form, null, 2)}</pre>
                         <div>
                             <div className="input-field">
                                 <input
@@ -17,6 +26,7 @@ const AuthPage = () => {
                                     id="email"
                                     type="text"
                                     name='email'
+                                    onChange={changeHandler}
                                 />
                                 <label htmlFor="email">Email</label>
                             </div>
@@ -28,6 +38,7 @@ const AuthPage = () => {
                                     id="password"
                                     type="password"
                                     name='password'
+                                    onChange={changeHandler}
                                 />
                                 <label htmlFor="email">Email</label>
                             </div>
