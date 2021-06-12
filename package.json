@@ -4,8 +4,8 @@
   "description": "MERN-STACK",
   "main": "app.js",
   "scripts": {
-    "start":"node app.js",
-    "server": "nodemon app.js"
+    "start": "node app.js",
+    "server": "nodemon start"
   },
   "keywords": [
     "mern",
@@ -14,7 +14,11 @@
   "author": "Nurmuhammet Saryyev <nsaryyev9797@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
     "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.13"
   },
   "devDependencies": {
