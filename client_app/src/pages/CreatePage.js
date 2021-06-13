@@ -9,7 +9,6 @@ const CreatePage = () => {
     const { token } = useContext(AuthContext);
     const { push } = useHistory();
 
-
     const pressHandler = async e => {
 
         if (e.key === 'Enter') {
@@ -29,7 +28,7 @@ const CreatePage = () => {
     }
 
     useEffect(() => {
-        
+
         window.M.updateTextFields();
 
     }, []);
@@ -39,6 +38,7 @@ const CreatePage = () => {
             <div className="col blue s8 offset-s2" style={{ paddingTop: "2rem" }} >
 
                 <div className="input-field">
+
                     <input
                         className="yellow-input"
                         placeholder="Enter link..."
@@ -47,6 +47,7 @@ const CreatePage = () => {
                         onChange={e => setLink(e.target.value)}
                         onKeyPress={pressHandler}
                     />
+
                     <label htmlFor="link">Link</label>
                 </div>
 
