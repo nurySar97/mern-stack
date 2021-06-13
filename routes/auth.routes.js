@@ -4,13 +4,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+
 const router = Router();
 
 // /api/auth/register
 router.post(
     '/register',
     [
-        check('email', 'Uncorrect email!').isEmail(),
+        check('email', 'Incorrect email!').isEmail(),
         check('password', 'Min length of password 6').isLength({ min: 6 })
     ],
     async (req, res) => {
@@ -19,7 +20,7 @@ router.post(
             if (!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
-                    message: 'Uncorrect registration data!'
+                    message: 'Incorrect registration data!'
                 })
             }
             const { email, password } = req.body;
@@ -39,21 +40,22 @@ router.post(
         }
     })
 
+
 // /api/auth/login
 router.post(
     '/login',
     [
-        check('email', 'Enter please correct email!').normalizeEmail().isEmpty(),
+        check('email', 'Enter please correct email!').normalizeEmail().isEmail(),
         check('password', 'Enter please password!').exists()
-    ]
-    ,
+    ],
     async (req, res) => {
         try {
             const errors = validationResult(req);
+
             if (!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
-                    message: 'Uncorrect data entering to system!'
+                    message: 'Incorrect login data'
                 })
             }
 
@@ -67,7 +69,7 @@ router.post(
             const isMatch = await bcrypt.compare(password, user.password);
 
             if (!isMatch) {
-                return res.status(400).json({ message: 'Not correct password, please repeat again!' })
+                return res.status(400).json({ message: 'Incorrect password, please repeat again!' })
             }
 
             const token = jwt.sign(
@@ -77,7 +79,7 @@ router.post(
             )
 
             res.json({ token, userId: user.id });
-            
+
         } catch (e) {
             res.status(500).json({ message: "Something went wrong...try please again!" })
         }

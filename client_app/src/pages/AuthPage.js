@@ -1,13 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useHttp } from '../hooks/http.hook';
+import { useMessage } from '../hooks/message.hook';
 
 const AuthPage = () => {
+    const { loading, error, request, clearError } = useHttp();
+    const { isAuthenticated, logout, login, userId } = useContext(AuthContext);
+
+    const message = useMessage();
+
     const [form, setForm] = useState({
         email: '',
         password: ''
     });
 
+    useEffect(() => {
+        message(error);
+        clearError();
+    }, [error, message, clearError])
+
     const changeHandler = e => {
         setForm({ ...form, [e.target.name]: e.target.value })
+    }
+
+    const registerHandler = async () => {
+        try {
+            const data = await request('/api/auth/register', 'POST', form);
+            message(data.message)
+        } catch {
+
+        }
+    }
+
+    const loginHandler = async () => {
+        try {
+            const data = await request('/api/auth/login', 'POST', form);
+            login(data.token, data.userId)
+        } catch {
+
+        }
     }
 
     return (
@@ -17,7 +48,7 @@ const AuthPage = () => {
                 <div className="card blue darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">Authorization</span>
-                        <pre>{JSON.stringify(form, null, 2)}</pre>
+
                         <div>
                             <div className="input-field">
                                 <input
@@ -40,7 +71,7 @@ const AuthPage = () => {
                                     name='password'
                                     onChange={changeHandler}
                                 />
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="password">Password</label>
                             </div>
                         </div>
                     </div>
@@ -49,11 +80,18 @@ const AuthPage = () => {
                         <button
                             className='btn yellow darken-4'
                             style={{ marginRight: "1rem" }}
+                            onClick={loginHandler}
+                            disabled={loading}
+
                         >
                             Sign in
                         </button>
 
-                        <button className='btn grey lighten-1 black-text'>
+                        <button
+                            className='btn grey lighten-1 black-text'
+                            onClick={registerHandler}
+                            disabled={loading}
+                        >
                             Registration
                         </button>
                     </div>
