@@ -5,44 +5,63 @@ import { useMessage } from '../hooks/message.hook';
 
 const AuthPage = () => {
     const { loading, error, request, clearError } = useHttp();
-    const { isAuthenticated, logout, login, userId } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
     const message = useMessage();
 
     const [form, setForm] = useState({
         email: '',
+
         password: ''
+
     });
 
     useEffect(() => {
+
         message(error);
+
         clearError();
+
     }, [error, message, clearError]);
 
     useEffect(() => {
+
         window.M.updateTextFields();
-    }, [])
+
+    }, []);
 
     const changeHandler = e => {
-        setForm({ ...form, [e.target.name]: e.target.value })
+
+        setForm({ ...form, [e.target.name]: e.target.value });
+
     }
 
     const registerHandler = async () => {
+
         try {
+
             const data = await request('/api/auth/register', 'POST', form);
-            message(data.message)
+
+            message(data.message);
+
         } catch {
 
         }
+
     }
 
     const loginHandler = async () => {
+
         try {
+
             const data = await request('/api/auth/login', 'POST', form);
+
             login(data.token, data.userId)
+
         } catch {
 
         }
+
     }
 
     return (
@@ -61,6 +80,7 @@ const AuthPage = () => {
                                     id="email"
                                     type="text"
                                     name='email'
+                                    value={form['email']}
                                     onChange={changeHandler}
                                 />
                                 <label htmlFor="email">Email</label>
@@ -73,6 +93,7 @@ const AuthPage = () => {
                                     id="password"
                                     type="password"
                                     name='password'
+                                    value={form['password']}
                                     onChange={changeHandler}
                                 />
                                 <label htmlFor="password">Password</label>
