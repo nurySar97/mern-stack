@@ -3,32 +3,29 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
-    const auth = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
     const history = useHistory();
 
     const logoutHandler = (e) => {
         e.preventDefault();
-        auth.logout();
+        logout();
         history.push('/')
     }
 
     return (
         <nav>
-            <div className="nav-wrapper">
-                <a href="/" className="brand-logo">Reduce links</a>
+            <div className="nav-wrapper blue darken-1" style={{ padding: "0 2rem" }}>
+                <span className="brand-logo">Reduce links</span>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li>
                         <NavLink to='/create'>Create</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/links'>Create</NavLink>
+                        <NavLink to='/links'>Links</NavLink>
                     </li>
                     <li>
-                        <NavLink
-                            to='/'
-                            onClick={logoutHandler}
-                        >
-                            Create
+                        <NavLink to='/' onClick={logoutHandler}>
+                            Logout
                         </NavLink>
                     </li>
                 </ul>
