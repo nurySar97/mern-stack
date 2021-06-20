@@ -9,7 +9,7 @@
     "client": "npm run start --prefix client_app",
     "client:install": "npm install --prefix client_app",
     "client:build": "npm run build --prefix client_app",
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client_app\""
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "mern",

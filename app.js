@@ -10,18 +10,11 @@ app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/link', require('./routes/link.routes'));
 app.use('/t/', require('./routes/redirect.routes'));
 
-if(process.env.NODE_ENV === 'production'){
+app.get('*', (req, res) => {
 
-    app.use('/', express.static(path.join(__dirname, 'client_app', 'build')));
+    res.sendFile(path.resolve(__dirname, 'client_app', 'index.html'));
 
-
-    app.get('*', (req, res)=>{
-
-        res.sendFile(path.resolve(__dirname, 'client_app', 'index.html'));
-
-    })
-
-}
+})
 
 /* PORT */
 const PORT = config.get('port') || 5000;
@@ -52,7 +45,7 @@ void async function () {
         console.log('Server error: ', error.message);
 
         process.exit(1);
-        
+
     }
-    
+
 }()

@@ -4,18 +4,18 @@ const config = require('config');
 module.exports = async (req, res, next) => {
 
     if (req.method === 'OPTIONS') {
-        
+
         return next();
 
     }
 
     try {
-        
+
         const token = req.headers.authorization.split(' ')[1] // 'Bearer TOKEN'
 
-        if(!token){
+        if (!token) {
 
-            res.status(401).json({message: 'No authorization!'});
+            res.status(401).json({ message: 'No authorization!' });
 
         }
 
@@ -27,7 +27,7 @@ module.exports = async (req, res, next) => {
 
     } catch (e) {
 
-        res.status(401).json({message: 'No authorization!'});
-        
+        res.status(401).json({ message: 'No authorization!' });
+
     }
 }
